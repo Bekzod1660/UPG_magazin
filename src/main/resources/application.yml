@@ -1,0 +1,9 @@
+spring.datasource:
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/upg_magazin
+  username: postgres
+  password: 1660
+spring.jpa:
+  hibernate.ddl-auto: update
+  defer-datasource-initialization: true
+spring.sql.init.mode: embedded
