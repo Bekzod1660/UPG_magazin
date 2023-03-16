@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class ApiResponse {
     @JsonProperty("status_code")
     private int statusCode;
-    private Object message;
+    private String message;
     private Object data;
 
 
