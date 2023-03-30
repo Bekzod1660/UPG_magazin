@@ -2,6 +2,7 @@ package uz.pdp.upg_magazin.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 
 @Getter
@@ -18,7 +19,8 @@ public class Magazine extends Base {
     private int phoneNumber;
     @Column(nullable = false)
     private String workingTime;
-    /////
+    @OneToOne
+    private Address address;
 
 
 

@@ -21,8 +21,14 @@ public class UserRequestDto {
 
     private int phoneNumber;
 
+    private String email;
+
     private List<RoleEnum> roleEnumList;
 
     private List<PermissionEnum> permissionEnumList;
+
+    public  boolean isUser(){
+        return roleEnumList==null&& permissionEnumList==null;
+    }
 
 }

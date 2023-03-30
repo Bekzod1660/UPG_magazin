@@ -2,15 +2,14 @@ package uz.pdp.upg_magazin.service;
 
 import java.util.List;
 
-public interface BaseService <T,R>{
+public interface BaseService <T>{
 
-    R add(T t);
+    boolean add(T t);
 
-    R delete(int id);
+    boolean delete(int id);
 
-    List<T>listObject();
 
-    R update(int id,T t);
+    boolean update(int id,T t);
 
     T getById(int id);
 
