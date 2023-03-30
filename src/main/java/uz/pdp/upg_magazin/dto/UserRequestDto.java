@@ -21,8 +21,8 @@ public class UserRequestDto {
 
     private String phoneNumber;
     private String email;
-
-    private String email;
+    private List<RoleEnum>roleEnumList;
+    private List<PermissionEnum>permissionEnumList;
 
 
 
