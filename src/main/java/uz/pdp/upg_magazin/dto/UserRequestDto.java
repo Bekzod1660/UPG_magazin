@@ -22,9 +22,9 @@ public class UserRequestDto {
     private String phoneNumber;
     private String email;
 
-    private List<RoleEnum> roleEnumList;
+    private String email;
 
-    private List<PermissionEnum> permissionEnumList;
+
 
     public  boolean isUser(){
         return roleEnumList==null&& permissionEnumList==null;
