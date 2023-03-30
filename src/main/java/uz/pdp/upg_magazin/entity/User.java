@@ -7,7 +7,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import uz.pdp.upg_magazin.dto.AdminRequestDto;
 import uz.pdp.upg_magazin.dto.UserRequestDto;
 import uz.pdp.upg_magazin.entity.enums.PermissionEnum;
 import uz.pdp.upg_magazin.entity.enums.RoleEnum;
@@ -38,7 +37,7 @@ public class User extends Base implements UserDetails {
     private String password;
 
     @Column(unique = true)
-    private int phoneNumber;
+    private String  phoneNumber;
 
     private boolean isActive = true;
 
@@ -54,26 +53,27 @@ public class User extends Base implements UserDetails {
     private List<PermissionEnum> permissionEnumList;
 
 
-    public static User ofUser(UserRequestDto userRequestDto) {
-
-        return User.builder()
-                .email(userRequestDto.getEmail())
-                .name(userRequestDto.getName())
-                .phoneNumber(userRequestDto.getPhoneNumber())
+    public static User of(UserRequestDto userRequestDto) {
+        User user = User.builder()
                 .username(userRequestDto.getUsername())
-                .build();
-    }
-
-    public static User ofAdmin(AdminRequestDto adminRequestDto) {
-        return User.builder()
-                .name(adminRequestDto.getName())
-                .email(adminRequestDto.getEmail())
-                .phoneNumber(adminRequestDto.getPhoneNumber())
-                .username(adminRequestDto.getUsername())
+                .name(userRequestDto.getName())
+                .email(userRequestDto.getEmail())
+                .isActive(true)
+                .phoneNumber(userRequestDto.getPhoneNumber())
                 .build();
 
+        if (userRequestDto.isUser()) {
+            user.setPermissionEnumList(List.of());
+            user.setRoleEnumList(List.of(RoleEnum.USER));
+            return user;
+        }
 
+
+        user.setPermissionEnumList(userRequestDto.getPermissionEnumList());
+        user.setRoleEnumList(userRequestDto.getRoleEnumList());
+        return user;
     }
+
 
 
     @Override

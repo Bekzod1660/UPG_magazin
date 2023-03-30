@@ -19,10 +19,14 @@ public class UserRequestDto {
 
     private String password;
 
-    private int phoneNumber;
+    private String phoneNumber;
+    private String email;
 
     private String email;
 
 
 
+    public  boolean isUser(){
+        return roleEnumList==null&& permissionEnumList==null;
+    }
 }
