@@ -1,9 +1,10 @@
 package uz.pdp.upg_magazin.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import uz.pdp.upg_magazin.dto.ApiResponse;
+import uz.pdp.upg_magazin.common.exception.RecordNotFountException;
 import uz.pdp.upg_magazin.dto.UserRequestDto;
 import uz.pdp.upg_magazin.entity.User;
 import uz.pdp.upg_magazin.repository.UserRepository;
@@ -30,8 +31,14 @@ public class UserService implements  BaseService<UserRequestDto>{
 
     @Override
     public boolean delete(int id) {
-
-        return false;
+        Optional<User> byId = userRepository.findById(id);
+        if (byId.isEmpty()){
+            throw new UsernameNotFoundException("user not found");
+        }
+        User user = byId.get();
+        user.setActive(false);
+        userRepository.save(user);
+        return true;
     }
 
 
@@ -41,11 +48,23 @@ public class UserService implements  BaseService<UserRequestDto>{
 
     @Override
     public boolean update(int id, UserRequestDto userRequestDto) {
-        return false;
+        Optional<User> byId = userRepository.findById(id);
+        if (byId.isEmpty()){
+            throw new UsernameNotFoundException("user not found");
+        }
+        User user = byId.get();
+        user.setName(userRequestDto.getName());
+        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+        user.setUsername(userRequestDto.getUsername());
+        user.setEmail(userRequestDto.getEmail());
+        user.setPhoneNumber(userRequestDto.getPhoneNumber());
+        userRepository.save(user);
+
+        return true;
     }
 
-    @Override
-    public UserRequestDto getById(int id) {
-        return null;
+
+    public User getByUsername(String username) {
+        return userRepository.findByUsername(username).get();
     }
 }

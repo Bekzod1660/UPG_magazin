@@ -11,6 +11,5 @@ public interface BaseService <T>{
 
     boolean update(int id,T t);
 
-    T getById(int id);
 
 }
