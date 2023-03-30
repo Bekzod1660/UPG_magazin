@@ -19,7 +19,7 @@ public class UserRequestDto {
 
     private String password;
 
-    private int phoneNumber;
+    private String phoneNumber;
 
     private String email;
 
