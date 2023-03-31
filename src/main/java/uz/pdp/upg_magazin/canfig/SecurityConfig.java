@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableMBeanExport;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -35,11 +34,15 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST,"/**").permitAll()
-                .requestMatchers("/component/**").permitAll()
-                .requestMatchers("/view/**").permitAll()
+                .requestMatchers("/**").permitAll()
+                .requestMatchers( "/component/**").permitAll()
+                .requestMatchers( "/view/**").permitAll()
                 .anyRequest()
                 .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/authentication")
+                .permitAll()
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/")

@@ -2,9 +2,9 @@ package uz.pdp.upg_magazin.service;
 
 import java.util.List;
 
-public interface BaseService <T>{
+public interface BaseService <R,T>{
 
-    boolean add(T t);
+    R add(T t);
 
     boolean delete(int id);
 

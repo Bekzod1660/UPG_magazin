@@ -25,8 +25,8 @@ import java.util.List;
 public class User extends Base implements UserDetails {
 
     @Column(nullable = false)
-    private String name;
-
+    private String firstname;
+    private String lastname;
     @Column(unique = true)
     private String email;
 
@@ -52,14 +52,15 @@ public class User extends Base implements UserDetails {
 
     public static User of(UserRequestDto userRequestDto) {
         User user = User.builder()
-                .name(userRequestDto.getName())
+                .firstname(userRequestDto.getFirstname())
+                .lastname(userRequestDto.getLastname())
                 .email(userRequestDto.getEmail())
                 .isActive(true)
                 .phoneNumber(userRequestDto.getPhoneNumber())
                 .build();
 
         if (userRequestDto.isUser()) {
-            user.setPermissionEnumList(List.of());
+            user.setPermissionEnumList(List.of(PermissionEnum.READ));
             user.setRoleEnumList(List.of(RoleEnum.USER));
             return user;
         }
