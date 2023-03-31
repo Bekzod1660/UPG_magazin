@@ -13,15 +13,12 @@ import java.util.List;
 @Builder
 public class UserRequestDto {
 
-    private String name;
 
-    private String username;
-
-    private String password;
-
-    private String phoneNumber;
-
+    private String firstname;
+    private String lastname;
     private String email;
+    private String password;
+    private String  phoneNumber;
 
     private List<RoleEnum> roleEnumList;
 

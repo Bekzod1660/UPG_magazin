@@ -4,5 +4,5 @@ public enum PermissionEnum {
     ADD,
     DELETE,
     UPDATE,
-    LIST
+    READ
 }
