@@ -15,11 +15,6 @@ public class UserController {
     
     @PostMapping("/add")
     public String add(@RequestBody UserRequestDto userRequestDto){
-
-        boolean isSuccess = userService.add(userRequestDto);
-        if (isSuccess){
-            return "/";
-        }
         return "redirect:/register";
     }
     @GetMapping("/list")

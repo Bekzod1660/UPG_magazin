@@ -349,7 +349,7 @@
                     <td>
                         <a type="button" data-toggle="modal"
                            data-target="#editEmployeeModal"
-                           th:attr="onclick=|updateId('${admin.getId()}','${admin.name}','${admin.email}','${admin.phoneNumber}')|">
+                           th:attr="onclick=|updateId('${admin.getId()}','${admin.firstname}','${admin.lastname}','${admin.email}','${admin.phoneNumber}')|">
                             <i class="material-icons btn btn-primary">&#xE254;</i>
                         </a>
                         <a type="button" data-toggle="modal"
@@ -357,7 +357,7 @@
                             <i class="material-icons btn btn-danger">&#xE872;</i>
                         </a>
                         <a type="button" data-toggle="modal"
-                           data-target="#infoEmployeeModal" th:attr="onclick=|infoId('${admin.getId()}','${admin.name}','${admin.email}','${admin.phoneNumber}')|">
+                           data-target="#infoEmployeeModal" th:attr="onclick=|infoId('${admin.getId()}','${admin.firstname}','${admin.lastname}','${admin.phoneNumber}')|">
                             <i class="btn btn-info">Info</i>
                         </a>
 
@@ -378,8 +378,12 @@
             <div class="modal-body">
                 <form id="infoId" method="post">
                     <div class="form-group">
-                        <label>Name</label>
-                        <p id="info_name"></p>
+                        <label>lastname</label>
+                        <p id="info_lastname"></p>
+                    </div>
+                    <div class="form-group">
+                        <label>firstname</label>
+                        <p id="info_firstname"></p>
                     </div>
                     <div class="form-group">
                         <label>PhoneNumber</label>
@@ -402,13 +406,17 @@
         <div class="modal-content">
             <form action="/api/admin/add" method="post">
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit Admin</h4>
+                    <h4 class="modal-title">ADD Admin</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Name</label>
-                        <input name="name" type="text" class="form-control" required>
+                        <label>Firstname</label>
+                        <input name="Firstname" type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Lastname</label>
+                        <input name="lastname" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
@@ -466,8 +474,12 @@
             <div class="modal-body">
                 <form id="updateId" method="post">
                     <div class="form-group">
-                        <label>Name</label>
-                        <input name="name" type="text" id="name" class="form-control" required>
+                        <label>Lastname</label>
+                        <input name="lastname" type="text" id="lastname" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Firstname</label>
+                        <input name="firstname" type="text" id="firstname" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>PhoneNumber</label>
@@ -543,22 +555,24 @@
     </div>
 </div>
 <script>
-    function updateId(subjectId, name, phoneNumber, email) {
+    function updateId(subjectId, firstname,lastname, phoneNumber, email) {
         console.log(subjectId)
         let var2 = document.getElementById("updateId").action = "/api/admin/update/" + subjectId;
-        document.getElementById("name").value = name;
+        document.getElementById("lastname").value = lastname;
+        document.getElementById("firstname").value = firstname;
         document.getElementById("email").value = email;
         document.getElementById("phoneNumber").value = phoneNumber;
-        console.log(var2, name, phoneNumber, email)
+        console.log(var2, firstname,lastname, phoneNumber, email)
     }
-    function infoId(subjectId, name, phoneNumber, email) {
+    function infoId(subjectId, firstname,lastname, phoneNumber, email) {
         console.log(subjectId)
         let var2 = document.getElementById("infoId").action = "/api/admin/info/" + subjectId;
-        document.getElementById("info_name").innerHTML = name;
+        document.getElementById("info_lastname").innerHTML = lastname;
+        document.getElementById("info_firstname").innerHTML = firstname;
         document.getElementById("info_email").innerHTML = email;
         document.getElementById("info_phoneNumber").innerHTML = phoneNumber;
 
-         console.log(var2, name, phoneNumber, email)
+         console.log(var2, firstname,lastname, phoneNumber, email)
     }
 
     function deleteId(subjectId) {

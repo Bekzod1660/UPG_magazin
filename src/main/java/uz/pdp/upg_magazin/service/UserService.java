@@ -1,15 +1,12 @@
 package uz.pdp.upg_magazin.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import uz.pdp.upg_magazin.dto.ApiResponse;
 import uz.pdp.upg_magazin.dto.UserRequestDto;
 import uz.pdp.upg_magazin.dto.request.UserLoginDto;
 import uz.pdp.upg_magazin.entity.User;
@@ -28,16 +25,6 @@ public class UserService implements BaseService<User,UserRequestDto> {
 
     @Override
     public User add(UserRequestDto userRequestDto) {
-//        Optional<User> byPhoneNumber = userRepository.findByPhoneNumber(userRequestDto.getPhoneNumber());
-//        if (byPhoneNumber.isPresent()) {
-//            throw new IllegalArgumentException(String.format("PhoneNumber %s already exist", userRequestDto.getPhoneNumber()));
-//        }
-//        User user = userRepository.findByEmail(userRequestDto.getEmail()).orElseThrow(
-//                ()-> new RuntimeException(String.format( userRequestDto.getEmail()+"this email is registered"))
-//        );
-//
-//        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
-//        return true;
         Optional<User> optionalUserEntity = userRepository.findByEmail(userRequestDto.getEmail());
         if (optionalUserEntity.isPresent()){
             return null;
@@ -80,7 +67,8 @@ public class UserService implements BaseService<User,UserRequestDto> {
             throw new UsernameNotFoundException("user not found");
         }
         User user = byId.get();
-        user.setName(userRequestDto.getName());
+        user.setLastname(userRequestDto.getLastname());
+        user.setFirstname(userRequestDto.getFirstname());
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         user.setEmail(userRequestDto.getEmail());
         user.setPhoneNumber(userRequestDto.getPhoneNumber());
