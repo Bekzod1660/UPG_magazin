@@ -28,9 +28,6 @@ public class User extends Base implements UserDetails {
     private String name;
 
     @Column(unique = true)
-    private String username;
-
-    @Column(unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -55,7 +52,6 @@ public class User extends Base implements UserDetails {
 
     public static User of(UserRequestDto userRequestDto) {
         User user = User.builder()
-                .username(userRequestDto.getUsername())
                 .name(userRequestDto.getName())
                 .email(userRequestDto.getEmail())
                 .isActive(true)
@@ -88,6 +84,11 @@ public class User extends Base implements UserDetails {
         });
         return roles;
 
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override
