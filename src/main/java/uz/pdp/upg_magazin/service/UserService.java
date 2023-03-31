@@ -1,10 +1,15 @@
 package uz.pdp.upg_magazin.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import uz.pdp.upg_magazin.dto.ApiResponse;
 import uz.pdp.upg_magazin.dto.UserRequestDto;
+import uz.pdp.upg_magazin.dto.request.UserLoginDto;
 import uz.pdp.upg_magazin.entity.User;
 import uz.pdp.upg_magazin.repository.UserRepository;
 
@@ -13,19 +18,29 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements  BaseService<UserRequestDto>{
+public class UserService implements BaseService<User,UserRequestDto> {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public boolean add(UserRequestDto userRequestDto) {
-        Optional<User> byPhoneNumber = userRepository.findByPhoneNumber(userRequestDto.getPhoneNumber());
-        if (byPhoneNumber.isPresent()){
-            throw new IllegalArgumentException(String.format("PhoneNumber %s already exist",userRequestDto.getPhoneNumber()));
+    public User add(UserRequestDto userRequestDto) {
+//        Optional<User> byPhoneNumber = userRepository.findByPhoneNumber(userRequestDto.getPhoneNumber());
+//        if (byPhoneNumber.isPresent()) {
+//            throw new IllegalArgumentException(String.format("PhoneNumber %s already exist", userRequestDto.getPhoneNumber()));
+//        }
+//        User user = userRepository.findByEmail(userRequestDto.getEmail()).orElseThrow(
+//                ()-> new RuntimeException(String.format( userRequestDto.getEmail()+"this email is registered"))
+//        );
+//
+//        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+//        return true;
+        Optional<User> optionalUserEntity = userRepository.findByEmail(userRequestDto.getEmail());
+        if (optionalUserEntity.isPresent()){
+            return null;
         }
-        User user=User.of(userRequestDto);
+        User user = User.of(userRequestDto);
         user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
-        return true;
+        return userRepository.save(user);
     }
 
     @Override
@@ -39,6 +54,7 @@ public class UserService implements  BaseService<UserRequestDto>{
         return userRepository.findAll();
     }
 
+
     @Override
     public boolean update(int id, UserRequestDto userRequestDto) {
         return false;
@@ -47,5 +63,27 @@ public class UserService implements  BaseService<UserRequestDto>{
     @Override
     public UserRequestDto getById(int id) {
         return null;
+    }
+
+    public User login(UserLoginDto userLoginDto) {
+        User user = userRepository.findByEmail(userLoginDto.getEmail()).orElseThrow(
+                () -> new UsernameNotFoundException("user not found" + userLoginDto.getEmail())
+        );
+        if(user!=null){
+            if (passwordEncoder.matches(userLoginDto.getPassword(), user.getPassword())) {
+                this.authenticate(user);
+                return user;
+            }
+        }
+        return new User();
+    }
+    private void authenticate(User user) {
+        Authentication authentication =
+                new UsernamePasswordAuthenticationToken(
+                        user.getUsername(),
+                        null,
+                        user.getAuthorities()
+                );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }
