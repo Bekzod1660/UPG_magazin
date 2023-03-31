@@ -43,6 +43,7 @@ public class UserService implements BaseService<UserRequestDto> {
         return true;
     }
 
+
     public List<User> listObject() {
         List<User> userList = new ArrayList<>();
         for (User user : userRepository.findAll()) {
