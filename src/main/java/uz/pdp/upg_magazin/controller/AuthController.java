@@ -10,10 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 import uz.pdp.upg_magazin.dto.UserRequestDto;
 import uz.pdp.upg_magazin.dto.request.UserLoginDto;
 import uz.pdp.upg_magazin.entity.User;
+import uz.pdp.upg_magazin.entity.enums.RoleEnum;
 import uz.pdp.upg_magazin.service.UserService;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/api/v1/auth")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -21,7 +24,7 @@ public class AuthController {
 
     @GetMapping("/register")
     public ModelAndView register(ModelAndView modelAndView) {
-        modelAndView.setViewName("authentication");
+        modelAndView.setViewName("login");
         return modelAndView;
     }
 
@@ -39,7 +42,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(@ModelAttribute UserLoginDto userLoginDto) {
-        return "authentication";
+        return "login";
     }
 
     @PostMapping("/login")
@@ -51,7 +54,7 @@ public class AuthController {
         modelAndView.addObject(
                 "user", loginUser != null ? loginUser : "ERROR"
         );
-        modelAndView.setViewName(loginUser != null ? "home" : "authentication");
+        modelAndView.setViewName(loginUser != null ? (loginUser.getRoleEnumList().equals(List.of(RoleEnum.SUPER_ADMIN)) ? "CrudAdmin" : "home" ) : "login");
         return modelAndView;
     }
 
