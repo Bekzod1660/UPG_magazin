@@ -31,7 +31,7 @@ public class AuthController {
             ModelAndView modelAndView
     ) {
         modelAndView.addObject(
-                "authentication", userService.add(userRequestDto) != null ? userRequestDto : "ERROR"
+                "user", userService.add(userRequestDto) != null ? userRequestDto : "ERROR"
         );
         modelAndView.setViewName("home");
         return modelAndView;
