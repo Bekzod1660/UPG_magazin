@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.pdp.upg_magazin.dto.UserRequestDto;
@@ -81,16 +80,15 @@ public class UserService implements BaseService<User,UserRequestDto> {
     }
 
     public User login(UserLoginDto userLoginDto) {
-        User user = userRepository.findByEmail(userLoginDto.getEmail()).orElseThrow(
-                () -> new UsernameNotFoundException("user not found" + userLoginDto.getEmail())
-        );
-        if(user!=null){
-            if (passwordEncoder.matches(userLoginDto.getPassword(), user.getPassword())) {
-                this.authenticate(user);
-                return user;
+        Optional<User> user = userRepository.findByEmail(userLoginDto.getEmail());
+        if(user.isPresent()){
+            User userResponse = user.get();
+            if (passwordEncoder.matches(userLoginDto.getPassword(), userResponse.getPassword())) {
+                this.authenticate(userResponse);
+                return userResponse;
             }
         }
-        return new User();
+        return null;
     }
     private void authenticate(User user) {
         Authentication authentication =
