@@ -22,7 +22,6 @@ public class AuthService implements UserDetailsService {
         return userRepository.findByEmail(email).orElseThrow(
                 () -> new UsernameNotFoundException(String.format("username %s not found", email))
         );
-
     }
     public Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();

@@ -22,7 +22,7 @@
       <button class="signUpBtn">SIGN UP</button>
       <button class="loginBtn">LOG IN</button>
     </div>
-    <form class="signUp" action="" method="post" th:action="@{/api/v1/auth/register}">
+    <form class="signUp" action="" method="post" th:action="@{/register}">
       <div class="formGroup">
         <input type="text" id="firstname" name="firstname" placeholder="Firstname" autocomplete="off">
       </div>
@@ -52,7 +52,7 @@
     </form>
 
     <!------ Login Form -------- -->
-    <form class="login" action="" method="post" th:action="@{/api/v1/auth/login}">
+    <form class="login" action="" method="post" th:action="@{/login}">
 
       <div class="formGroup">
         <input type="email" placeholder="Email ID" name="email" required autocomplete="off">
