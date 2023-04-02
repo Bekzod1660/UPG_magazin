@@ -21,15 +21,6 @@ public abstract class Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
-
-
-    @CreatedBy
-    protected String createdBy;
-
-    @LastModifiedBy
-    protected String updatedBy;
-
-
     @CreationTimestamp
     protected Timestamp createdDate;
 

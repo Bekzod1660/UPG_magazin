@@ -54,7 +54,23 @@ public class AuthController {
         modelAndView.addObject(
                 "user", loginUser != null ? loginUser : "ERROR"
         );
-        modelAndView.setViewName(loginUser != null ? (loginUser.getRoleEnumList().equals(List.of(RoleEnum.SUPER_ADMIN)) ? "CrudAdmin" : "home" ) : "login");
+        if (loginUser!=null){
+           if (loginUser.getRoleEnumList().equals(List.of(RoleEnum.USER))){
+               modelAndView.setViewName("home");
+           }
+           else if (loginUser.getRoleEnumList().equals(List.of(RoleEnum.ADMIN))){
+               modelAndView.setViewName("product");
+           }
+           else {
+               modelAndView.setViewName("CrudAdmin");
+           }
+        }
+        else {
+            modelAndView.setViewName("login");
+        }
+//
+//        modelAndView.setViewName(loginUser != null ? (loginUser.getRoleEnumList().equals(List.of(RoleEnum.SUPER_ADMIN)) ?  "CrudAdmin" :
+//                loginUser.getRoleEnumList().equals(List.of(RoleEnum.ADMIN))? "index":"home" ) : "login");
         return modelAndView;
     }
 
