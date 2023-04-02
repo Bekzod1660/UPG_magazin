@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+import uz.pdp.upg_magazin.dto.AddressDto;
 
 import java.util.Set;
 
@@ -15,19 +16,26 @@ import java.util.Set;
 @Builder
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Address extends Base{
 
-    @Column(nullable = false,unique = true)
+
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Address parent;
+    @ManyToOne
+    private City city;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "parent")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Set<Address> parentId;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Address parent;
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    private Set<Address> parentId;
+
+    public static Address of(AddressDto addressDto) {
+        return Address.builder()
+                .name(addressDto.getName())
+                .build();
+    }
 
 }
