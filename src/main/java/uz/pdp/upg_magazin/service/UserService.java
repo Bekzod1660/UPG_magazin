@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uz.pdp.upg_magazin.common.exception.RecordNotFountException;
 import uz.pdp.upg_magazin.dto.UserRequestDto;
 import uz.pdp.upg_magazin.dto.request.UserLoginDto;
 import uz.pdp.upg_magazin.entity.User;
@@ -63,11 +64,7 @@ public class UserService implements BaseService<User,UserRequestDto> {
 
     @Override
     public boolean update(int id, UserRequestDto userRequestDto) {
-        Optional<User> byId = userRepository.findById(id);
-        Optional<User> byEmail = userRepository.findByEmail(userRequestDto.getEmail());
-        Optional<User> byPhoneNumber = userRepository.findByPhoneNumber(userRequestDto.getPhoneNumber());
-        if (byEmail.isEmpty()&&byId.isPresent()&& byPhoneNumber.isEmpty()) {
-            User user = byId.get();
+        User user = userRepository.findById(id).orElseThrow(() -> new RecordNotFountException(id+" user not found"));
             user.setLastname(userRequestDto.getLastname());
             user.setFirstname(userRequestDto.getFirstname());
             user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
@@ -76,8 +73,6 @@ public class UserService implements BaseService<User,UserRequestDto> {
             userRepository.save(user);
             return true;
 
-        }
-        throw new UsernameNotFoundException("user not found");
     }
 
     public User info(int id){

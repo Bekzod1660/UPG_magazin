@@ -14,7 +14,7 @@ public class AddressController {
     private final AddressService addressService;
 
     @PostMapping("/add")
-    public String add(@ModelAttribute AddressDto addressDto){
+    public String add(@RequestBody AddressDto addressDto){
         addressService.add(addressDto);
         return "redirect:/api/address";
     }
@@ -30,7 +30,6 @@ public class AddressController {
         modelAndView.addObject("addressList",addressService.listAddress());
         modelAndView.setViewName("address");   /////////// paje quyish
         return modelAndView;
-
     }
     @GetMapping("/{name}")
     public String get(
@@ -43,7 +42,7 @@ public class AddressController {
     @PutMapping("/update/{id}")
     public String update(
             @PathVariable("id") int id,
-            @ModelAttribute AddressDto addressDto
+            @RequestBody AddressDto addressDto
     ){
         addressService.update(id,addressDto);
         return "redirect:/api/address";

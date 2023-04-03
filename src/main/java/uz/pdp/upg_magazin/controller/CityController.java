@@ -14,7 +14,7 @@ public class CityController {
     private final CityService cityService;
 
     @PostMapping("/add")
-    public String add(@ModelAttribute CityDto cityDto){
+    public String add(@RequestBody CityDto cityDto){
         cityService.add(cityDto);
         return "redirect:/api/city";
     }
