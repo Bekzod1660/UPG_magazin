@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import uz.pdp.upg_magazin.dto.AddressDto;
 
 import java.util.Set;
@@ -22,7 +24,8 @@ public class Address extends Base{
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(cascade=CascadeType.REMOVE)
     private City city;
 
 //    @ManyToOne(fetch = FetchType.LAZY)

@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class Product extends Base {
 
     @Column(unique = true, nullable = false)
@@ -32,9 +35,13 @@ public class Product extends Base {
     private String madel;
     @Column(nullable = false)
     private String image;
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne
     private Category category;
+    ///////////////////////////////
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany
     private List<Magazine>magazineList;
 
+    ////////////////////////////////
 }

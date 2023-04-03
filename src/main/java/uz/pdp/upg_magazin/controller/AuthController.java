@@ -59,7 +59,7 @@ public class AuthController {
                modelAndView.setViewName("home");
            }
            else if (loginUser.getRoleEnumList().equals(List.of(RoleEnum.ADMIN))){
-               modelAndView.setViewName("product");
+               modelAndView.setViewName("index");
            }
            else {
                modelAndView.setViewName("CrudAdmin");

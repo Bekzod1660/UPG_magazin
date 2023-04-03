@@ -40,7 +40,6 @@ public class User extends Base implements UserDetails {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-
     private List<Product> productList;
 
     @Enumerated(value = EnumType.STRING)
