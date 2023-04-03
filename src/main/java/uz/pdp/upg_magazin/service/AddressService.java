@@ -8,6 +8,7 @@ import uz.pdp.upg_magazin.entity.Address;
 import uz.pdp.upg_magazin.repository.AddressRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -48,14 +49,9 @@ public class AddressService implements BaseService<Address, AddressDto> {
 
     @Override
     public boolean update(int id, AddressDto addressDto) {
-        Optional<Address> byId = addressRepository.findById(id);
-        Optional<Address> byName = addressRepository.findByName(addressDto.getName());
-        if (byName.isEmpty()&&byId.isPresent()) {
-            Address address = byId.get();
-            address.setName(addressDto.getName());
-            addressRepository.save(address);
-            return true;
-        }
-        throw new RecordNotFountException("Address not fount");
+        Address address = addressRepository.findById(id).orElseThrow(() -> new NoSuchElementException(id + " not fount "));
+        address.setName(address.getName());
+        addressRepository.save(address);
+        return true;
     }
 }
