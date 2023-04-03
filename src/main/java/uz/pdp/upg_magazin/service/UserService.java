@@ -26,7 +26,8 @@ public class UserService implements BaseService<User,UserRequestDto> {
     @Override
     public User add(UserRequestDto userRequestDto) {
         Optional<User> optionalUserEntity = userRepository.findByEmail(userRequestDto.getEmail());
-        if (optionalUserEntity.isPresent()){
+        Optional<User> byPhoneNumber = userRepository.findByPhoneNumber(userRequestDto.getPhoneNumber());
+        if (optionalUserEntity.isPresent()&& byPhoneNumber.isPresent()){
             return null;
         }
         User user = User.of(userRequestDto);
@@ -63,17 +64,20 @@ public class UserService implements BaseService<User,UserRequestDto> {
     @Override
     public boolean update(int id, UserRequestDto userRequestDto) {
         Optional<User> byId = userRepository.findById(id);
-        if (byId.isEmpty()) {
-            throw new UsernameNotFoundException("user not found");
+        Optional<User> byEmail = userRepository.findByEmail(userRequestDto.getEmail());
+        Optional<User> byPhoneNumber = userRepository.findByPhoneNumber(userRequestDto.getPhoneNumber());
+        if (byEmail.isEmpty()&&byId.isPresent()&& byPhoneNumber.isEmpty()) {
+            User user = byId.get();
+            user.setLastname(userRequestDto.getLastname());
+            user.setFirstname(userRequestDto.getFirstname());
+            user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
+            user.setEmail(userRequestDto.getEmail());
+            user.setPhoneNumber(userRequestDto.getPhoneNumber());
+            userRepository.save(user);
+            return true;
+
         }
-        User user = byId.get();
-        user.setLastname(userRequestDto.getLastname());
-        user.setFirstname(userRequestDto.getFirstname());
-        user.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
-        user.setEmail(userRequestDto.getEmail());
-        user.setPhoneNumber(userRequestDto.getPhoneNumber());
-        userRepository.save(user);
-        return true;
+        throw new UsernameNotFoundException("user not found");
     }
 
     public User info(int id){

@@ -7,6 +7,7 @@ import uz.pdp.upg_magazin.dto.CityDto;
 import uz.pdp.upg_magazin.entity.City;
 import uz.pdp.upg_magazin.repository.CityRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,9 @@ public class CityService implements BaseService<City, CityDto> {
         return cityRepository.findByName(name).orElseThrow(() -> new RecordNotFountException("City not fount"));
     }
 
+    public List<City> list(){
+        return cityRepository.findAll();
+    }
     @Override
     public boolean delete(int id) {
         Optional<City> byId = cityRepository.findById(id);

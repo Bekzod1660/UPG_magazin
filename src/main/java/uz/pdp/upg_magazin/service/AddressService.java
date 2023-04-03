@@ -48,6 +48,14 @@ public class AddressService implements BaseService<Address, AddressDto> {
 
     @Override
     public boolean update(int id, AddressDto addressDto) {
-        return false;
+        Optional<Address> byId = addressRepository.findById(id);
+        Optional<Address> byName = addressRepository.findByName(addressDto.getName());
+        if (byName.isEmpty()&&byId.isPresent()) {
+            Address address = byId.get();
+            address.setName(addressDto.getName());
+            addressRepository.save(address);
+            return true;
+        }
+        throw new RecordNotFountException("Address not fount");
     }
 }

@@ -19,8 +19,8 @@ public class UserController {
     }
     @GetMapping("/list")
     public String list(){
-        userService.listObject();
-return "";
+
+return "ishlad";
     }
 
 
