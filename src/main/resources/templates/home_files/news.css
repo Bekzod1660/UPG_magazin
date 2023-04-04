@@ -1,0 +1,49 @@
+/*
+// News Module for Opencart v1.5.5, modified by villagedefrance (contact@villagedefrance.net)
+*/
+
+.box-news{display: inline-table;margin: 5px 28px 30px 0px;overflow: auto;width: 160px;}
+.content-news{background:#FBFBFB;margin-bottom:10px;overflow:hidden;border:1px solid #DBDEE1;-webkit-border-radius:5px;-moz-border-radius:5px;-khtml-border-radius:5px;border-radius:5px;-webkit-box-shadow:0 2px 2px silver;-moz-box-shadow:0 2px 2px silver;box-shadow:0 2px 2px silver;padding:10px}
+.content-news .news{width:100%}
+.content-news .news a{text-decoration:none}
+.content-news .news h3{font-size:14px;font-weight:700;color:#444;text-shadow:0 1px 1px silver;margin-top:0;margin-bottom:5px}
+.content-news .news p{margin:5px 0}
+.content-news .news .image{width:auto;float:right;margin:5px}
+#listticker h4{margin-top:0;margin-bottom:5px;padding-bottom: 5px; font-size: 13px; color:#fc5502;}
+.box-news p{margin-top:0;margin-bottom:5px}
+.addthis{padding: 10px 0px;}
+
+  #listticker{
+  overflow:hidden;
+  
+  padding:8px 10px 14px 0px;
+  margin-bottom: 13px;
+  }
+  #listticker li{
+  border:0; margin:0; padding:0; list-style:none;
+  }
+ #listticker li{
+  padding:5px;
+  list-style:none;
+  }
+  #listticker a{
+  color:#000000;
+  margin-bottom:
+  }
+  #listticker .news-title{
+  display:block;
+  font-weight:bold;
+  margin-bottom:4px;
+  font-size:11px;
+  }
+  #listticker .news-text{
+  display:block;
+  font-size:11px;
+  color:#666666;
+  }
+  #listticker img{
+  float:left;
+  margin-right:14px;
+  padding:4px;
+  border:solid 1px #DEDEDE;
+  }

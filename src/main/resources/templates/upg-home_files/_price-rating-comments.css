@@ -1,0 +1,131 @@
+.rate {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row;
+    align-items: center;
+    color: white;
+}
+.rate .comment {
+    width: auto;
+    display: flex;
+    align-items: center;
+}
+.rate .comment i {
+    margin-right: 5px;
+}
+.rate .comment span {
+    font-size: 20px;
+    color: #a4b0be;
+}
+.jq-ry-container > .jq-ry-group-wrapper > .jq-ry-group > svg {
+    width: 17px;
+}
+.rating {
+    float: left;
+    display: flex;
+    flex-flow: row-reverse;
+    border: none !important;
+}
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t follow these rules. Every browser that supports :checked also supports :not(), so it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+    display: none;
+    clip: rect(0, 0, 0, 0);
+}
+.rating:not(:checked) > label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    /* padding:0 .1em;
+     */
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 200%;
+    color: #ddd;
+    /* line-height:1.2;
+     */
+}
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+.rating > input:checked ~ label {
+    color: #ffc621;
+}
+.rating:not(:checked) > label:hover, .rating:not(:checked) > label:hover ~ label {
+    color: #ffc621;
+}
+.rating > input:checked + label:hover, .rating > input:checked + label:hover ~ label, .rating > input:checked ~ label:hover, .rating > input:checked ~ label:hover ~ label, .rating > label:hover ~ input:checked ~ label {
+    color: #ffc621;
+}
+.rating > label:active {
+    position: relative;
+    top: 2px;
+    left: 2px;
+}
+@media all and (max-width: 1800px) {
+    .rating:not(:checked) > label {
+        font-size: 170%;
+    }
+}
+@media all and (max-width: 1665px) {
+    .rating:not(:checked) > label {
+        font-size: 135%;
+    }
+    .comment {
+        margin-left: 20px;
+        font-size: 14px;
+    }
+    .current-old-price h5.price {
+        font-size: 18px;
+    }
+    .current-old-price h6.old-price {
+        font-size: 16px;
+    }
+    .item-action-icons div {
+        width: 30px;
+        height: 30px;
+    }
+    .item-action-icons div i {
+        font-size: 14px;
+        line-height: 30px;
+    }
+}
+@media all and (max-width: 1250px) {
+    .rate {
+        display: flex;
+        justify-content: space-between;
+        flex-flow: row;
+        align-items: center;
+    }
+    .rating:not(:checked) > label {
+        font-size: 200%;
+    }
+    .comment {
+        font-size: 20px;
+    }
+    .item-action-icons div {
+        width: 40px;
+        height: 40px;
+    }
+    .item-action-icons div i {
+        font-size: 20px;
+        line-height: 40px;
+    }
+}
+@media all and (max-width: 800px) {
+    .rating:not(:checked) > label {
+        font-size: 190%;
+    }
+    .item-action-icons div {
+        width: 35px;
+        height: 35px;
+    }
+    .item-action-icons div i {
+        font-size: 21px;
+        line-height: 35px;
+    }
+    .comment {
+        font-size: 18px;
+    }
+}
+

@@ -1,0 +1,78 @@
+
+
+$(document).ready(function () {
+    $('#wait_order_button').click(function () {
+        var product_id = $('#product_id').val();
+        var customer_name = $('#customer_name').val();
+        var customer_email = $('#customer_email').val();
+        var customer_message = $('#customer_message').val();
+        if( !customer_name ) { 
+            $('#fast_order_result').html('<span class="fast_order_error">Обязательно укажите ваше имя и email, иначе мы не сможем уведомить вас о наличии товара!</span>'); 
+            $('#fast_order_result').shake();
+	    return false;    
+	}
+        if( !customer_email ) { 
+            $('#fast_order_result').html('<span class="fast_order_error">Обязательно укажите ваше имя и email, иначе мы не сможем уведомить вас о наличии товара!</span>'); 
+            $('#fast_order_result').shake();
+	    return false;    
+	}
+
+
+
+        mindbox("sync", {
+            operation: "AddProductToInStockItemList",
+            data: {
+            "customer": {
+            "fullName": customer_name,
+                "email": customer_email,
+                "subscriptions": [
+                {
+                    "brand": "4frag",
+                    "pointOfContact": "Email",
+                }
+            ]
+        },
+            "addProductToList": {
+            "product": {
+                "ids": {
+                    "website4frag": product_id
+                }
+            },
+        }
+    },
+        onSuccess: function() { },
+        onError: function(error) { }
+    });
+
+
+
+        $('#fast_order_result').html('Обрабатываем введенные данные..');
+        $.post('/wl.php', {
+      	  'product_id': product_id,
+      	  'customer_name': customer_name,
+      	  'customer_email': customer_email,
+      	  'customer_message': customer_message },
+      	 function (data) {
+      		  if (data == 'empty') {
+      			  $('#fast_order_result').html('<span class="fast_order_error">Обязательно укажите ваше имя и email, иначе мы не сможем уведомить вас о наличии товара!</span>'); 
+      			  $('#fast_order_result').shake();
+	     		  } else {
+                      $('#fast_order_button').hide();
+      		  	  $('#fast_order_result').html('<span class="fast_order_success">Ваш заказ успешно оформлен!</span><br /><span>Мы свяжемся с вами как только товар будет в наличии.');
+      		  		}
+           });
+    });
+
+jQuery.fn.shake = function(intShakes=2, intDistance=6, intDuration=90) {
+    this.each(function() {
+            $(this).css("position","relative"); 
+                    for (var x=1; x<=intShakes; x++) {
+                            $(this).animate({left:(intDistance*-1)}, (((intDuration/intShakes)/4)))
+                                .animate({left:intDistance}, ((intDuration/intShakes)/2))
+                                    .animate({left:0}, (((intDuration/intShakes)/4)));
+                                        }
+                                          });
+                                          return this;
+                                          };    
+    
+});
