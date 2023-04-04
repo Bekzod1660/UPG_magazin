@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/upg_magazin
+    url: jdbc:postgresql://localhost:5432/oqtepa_lavash
     username: postgres
-    password: 1660
+    password: 123
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
