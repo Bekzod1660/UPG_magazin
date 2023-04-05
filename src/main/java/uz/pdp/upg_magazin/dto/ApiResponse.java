@@ -6,7 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * This class is an api to get a
+ * custom reference to the
+ * frontend and is used instead of ResponseEntity
+* */
 
 @Data
 @AllArgsConstructor

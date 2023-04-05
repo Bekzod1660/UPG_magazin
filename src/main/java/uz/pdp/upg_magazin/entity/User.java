@@ -77,7 +77,7 @@ public class User extends Base implements UserDetails {
 
         List<SimpleGrantedAuthority> roles = new ArrayList<>();
         roleEnumList.forEach((rol) -> {
-            roles.add(new SimpleGrantedAuthority("ROLE_" + rol));
+            roles.add(new SimpleGrantedAuthority("ROLE_" + rol.name()));
         });
         permissionEnumList.forEach((per) -> {
             roles.add(new SimpleGrantedAuthority(per.name()));

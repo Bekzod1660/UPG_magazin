@@ -35,7 +35,7 @@ public class AddressController {
     public String get(
             @PathVariable String name
     ){
-        addressService.getByName(name);
+        addressService.getAddressByName(name);
         return "redirect:/api/address";
     }
 

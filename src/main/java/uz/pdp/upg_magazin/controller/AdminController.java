@@ -15,7 +15,7 @@ public class AdminController {
     private final UserService userService;
 
     @GetMapping("")
-    @PreAuthorize(value = "hasRole('SUPER_ADMIN')")
+//    @PreAuthorize(value = "hasRole('SUPER_ADMIN')")
     public ModelAndView get(ModelAndView modelAndView){
         modelAndView.addObject("adminList",userService.listObject());
         modelAndView.setViewName("CrudAdmin");

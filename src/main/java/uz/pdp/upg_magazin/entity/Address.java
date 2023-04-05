@@ -2,14 +2,11 @@ package uz.pdp.upg_magazin.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import uz.pdp.upg_magazin.dto.AddressDto;
-
-import java.util.Set;
 
 @Getter
 @Setter
@@ -26,7 +23,7 @@ public class Address extends Base{
 
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne(cascade=CascadeType.REMOVE)
-    private City city;
+    private CityEntity cityEntity;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Address parent;

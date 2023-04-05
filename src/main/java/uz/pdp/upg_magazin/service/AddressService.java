@@ -24,7 +24,7 @@ public class AddressService implements BaseService<Address, AddressDto> {
             throw new IllegalArgumentException(String.format("The %s already exist", addressDto.getName()));
         }
         Address address = Address.of(addressDto);
-        address.setCity(cityService.getByName(addressDto.getCityName()));
+        address.setCityEntity(cityService.getByName(addressDto.getCityName()));
         return addressRepository.save(address);
     }
 
@@ -33,18 +33,25 @@ public class AddressService implements BaseService<Address, AddressDto> {
         return addressRepository.findAll();
     }
 
-    public Address getByName(String name) {
-        return addressRepository.findByName(name).get();
+    public Address getAddressByName(String name) {
+        return addressRepository.findByName(name).orElseThrow(
+                () -> new RecordNotFountException("Address not fount")
+        );
     }
 
     @Override
     public boolean delete(int id) {
-        Optional<Address> byId = addressRepository.findById(id);
-        if (byId.isPresent()){
-            addressRepository.deleteById(id);
-            return true;
-        }
-         throw new RecordNotFountException("Address not fount");
+//        Optional<Address> byId = addressRepository.findById(id);
+//        if (byId.isPresent()){
+//            addressRepository.deleteById(id);
+//            return true;
+//        }
+//         throw new RecordNotFountException("Address not fount");
+        Address address = addressRepository.findById(id).orElseThrow(
+                () -> new RecordNotFountException("Address not fount")
+        );
+        addressRepository.delete(address);
+        return true;
     }
 
     @Override
