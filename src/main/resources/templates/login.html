@@ -41,34 +41,24 @@
       <div class="formGroup">
         <input type="password" id="confirmPassword" placeholder="Confirm Password" required autocomplete="off">
       </div>
-      <div class="checkBox">
-        <input type="checkbox" name="checkbox" >
-        <span class="text">I agree with term & conditions</span>
-      </div>
       <div class="formGroup">
         <button class="btn2">REGISTER</button>
       </div>
 
     </form>
 
-    <!------ Login Form -------- -->
-    <form class="login" action="" method="post" th:action="@{/login}">
+    <form class="login" method="POST" action="login">
 
       <div class="formGroup">
-        <input type="email" placeholder="Email ID" name="email" required autocomplete="off">
+        <input type="email" placeholder="Email ID" name="username" required autocomplete="off">
       </div>
       <div class="formGroup">
         <input type="password" id="password" name="password" placeholder="Password" required autocomplete="off">
 
       </div>
-      <div class="checkBox">
-        <input type="checkbox" name="checkbox" id="checkbox">
-        <span class="text">Keep me signed in on this device</span>
-      </div>
       <div class="formGroup">
-        <button class="btn2">REGISTER</button>
+        <input  class="btn2" name="submit" type="submit" value="submit"/>
       </div>
-
     </form>
 
   </div>

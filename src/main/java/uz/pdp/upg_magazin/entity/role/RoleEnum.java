@@ -1,7 +1,7 @@
-package uz.pdp.upg_magazin.entity.enums;
+package uz.pdp.upg_magazin.entity.role;
 
 public enum RoleEnum {
-    USER,
     ADMIN,
+    USER,
     SUPER_ADMIN
 }

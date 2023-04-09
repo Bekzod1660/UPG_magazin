@@ -332,16 +332,18 @@
                 </thead>
                 <tbody>
                 <tr th:each="admin: ${adminList}">
-                    <td th:text="${admin.getName()}"></td>
+                    <td th:text="${admin.firstname}"></td>
+                    <td th:text="${admin.lastname}"></td>
+                    <td th:text="${admin.getFirstname}"></td>
                     <td>
                         <select>
-                            <option th:each="permission : ${admin.getPermissionEnumList()}"
+                            <option th:each="permission : ${admin.getRolePermissionEntities().getPermissionEnum()}"
                                     th:value="${permission}" th:text="${permission}"></option>
                         </select>
                     </td>
                     <td>
                         <select>
-                            <option th:each="roles : ${admin.getRoleEnumList()}"
+                            <option th:each="roles : ${admin.getRolePermissionEntities().getRoleEnum()}"
                                     th:value="${roles}" th:text="${roles}"></option>
 
                         </select>
@@ -434,26 +436,26 @@
 
                         <label>Permission</label>
                         <br/>
-                        <input type="checkbox" name="permissionEnumList" value="ADD"/> Add
+                        <input type="checkbox" name="permissions" value="ADD"/> Add
                         <br>
 
-                        <input type="checkbox" name="permissionEnumList" value="READ"/> Read
+                        <input type="checkbox" name="permissions" value="READ"/> Read
                         <br>
 
-                        <input type="checkbox" name="permissionEnumList" value="UPDATE"/> Update
+                        <input type="checkbox" name="permissions" value="UPDATE"/> Update
                         <br>
 
-                        <input type="checkbox" name="permissionEnumList" value="DELETE"/> Delete
+                        <input type="checkbox" name="permissions" value="DELETE"/> Delete
 
                     </div>
 
                     <div class="form-group">
                         <label>Roles</label>
                         <br/>
-                        <input type="checkbox" name="roleEnumList" value="ADMIN"/> Admin
+                        <input type="checkbox" name="roles" value="ADMIN"/> Admin
                         <br/>
 
-                        <input type="checkbox" name="roleEnumList" value="USER"/> User
+                        <input type="checkbox" name="roles" value="USER"/> User
 
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 package uz.pdp.upg_magazin.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +13,12 @@ import uz.pdp.upg_magazin.service.CityService;
 @RequestMapping("/api/city")
 public class CityController {
     private final CityService cityService;
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/cit")
+    public String dsa(){
+        return "city";
+    }
 
     @PostMapping("/add")
     public String add(@RequestBody CityRequestDTO cityRequestDTO){

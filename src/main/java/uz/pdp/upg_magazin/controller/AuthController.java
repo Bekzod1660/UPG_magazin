@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import uz.pdp.upg_magazin.dto.UserRequestDto;
-import uz.pdp.upg_magazin.dto.request.UserLoginDto;
-import uz.pdp.upg_magazin.entity.User;
-import uz.pdp.upg_magazin.entity.enums.RoleEnum;
+import uz.pdp.upg_magazin.dto.request.UserLoginDto;;
 import uz.pdp.upg_magazin.service.UserService;
 
 import java.util.List;
@@ -50,34 +48,36 @@ public class AuthController {
     public String login(@ModelAttribute UserLoginDto userLoginDto) {
         return "login";
     }
-
-    @PostMapping("/login")
-    public ModelAndView login(
-            @ModelAttribute UserLoginDto userLoginDto,
-            ModelAndView modelAndView
-    ) {
-        User loginUser = userService.login(userLoginDto);
-        modelAndView.addObject(
-                "user", loginUser != null ? loginUser : "ERROR"
-        );
-        if (loginUser!=null){
-           if (loginUser.getRoleEnumList().equals(List.of(RoleEnum.USER))){
-               modelAndView.setViewName("home");
-           }
-           else if (loginUser.getRoleEnumList().equals(List.of(RoleEnum.ADMIN))){
-               modelAndView.setViewName("index");
-           }
-           else {
-               modelAndView.setViewName("CrudAdmin");
-           }
-        }
-        else {
-            modelAndView.setViewName("login");
-        }
 //
-//        modelAndView.setViewName(loginUser != null ? (loginUser.getRoleEnumList().equals(List.of(RoleEnum.SUPER_ADMIN)) ?  "CrudAdmin" :
-//                loginUser.getRoleEnumList().equals(List.of(RoleEnum.ADMIN))? "index":"home" ) : "login");
-        return modelAndView;
-    }
+//    @PostMapping("/login")
+//    public ModelAndView login(
+//            @ModelAttribute UserLoginDto userLoginDto,
+//            ModelAndView modelAndView
+//    ) {
+//        User loginUser = userService.login(userLoginDto);
+//        modelAndView.addObject(
+//                "user", loginUser != null ? loginUser : "ERROR"
+//        );
+////        if (loginUser!=null){
+////           if (loginUser.getRoleEnumList().equals(List.of(RoleEnum.USER))){
+////               modelAndView.setViewName("home");
+////           }
+////           else if (loginUser.getRoleEnumList().equals(List.of(RoleEnum.ADMIN))){
+////               modelAndView.setViewName("index");
+////           }
+////           else {
+////               modelAndView.setViewName("CrudAdmin");
+////           }
+////        }
+////        else {
+////            modelAndView.setViewName("login");
+////        }
+////
+////        modelAndView.setViewName(loginUser != null ? (loginUser.getRoleEnumList().equals(List.of(RoleEnum.SUPER_ADMIN)) ?  "CrudAdmin" :
+////                loginUser.getRoleEnumList().equals(List.of(RoleEnum.ADMIN))? "index":"home" ) : "login");
+//
+//        modelAndView.setViewName("CrudAdmin");
+//        return modelAndView;
+//    }
 
 }

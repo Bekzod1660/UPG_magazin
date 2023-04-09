@@ -1,7 +1,9 @@
+
 package uz.pdp.upg_magazin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,19 +13,20 @@ import uz.pdp.upg_magazin.service.UserService;
 @Controller
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
+
 public class AdminController {
     private final UserService userService;
 
     @GetMapping("")
-//    @PreAuthorize(value = "hasRole('SUPER_ADMIN')")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ModelAndView get(ModelAndView modelAndView){
-        modelAndView.addObject("adminList",userService.listObject());
+        modelAndView.addObject("adminList",userService.getAdminList());
         modelAndView.setViewName("CrudAdmin");
         return modelAndView;
     }
     @PostMapping("/add")
-    @PreAuthorize(value = "hasRole('SUPER_ADMIN')")
-    public String add(@ModelAttribute UserRequestDto userRequestDto){
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public String add(@ModelAttribute UserRequestDto userRequestDto, ModelAndView modelAndView){
         userService.add(userRequestDto);
         return "redirect:/api/admin";
     }
@@ -46,7 +49,7 @@ public class AdminController {
         return "redirect:/api/admin";
     }
     @PostMapping("/info/{id}")
-    @PreAuthorize(value = "hasRole('SUPER_ADMIN')")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public String info(
             @PathVariable("id") int id
     ){

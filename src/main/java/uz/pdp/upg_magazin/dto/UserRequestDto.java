@@ -1,12 +1,10 @@
 package uz.pdp.upg_magazin.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Data;
-import uz.pdp.upg_magazin.entity.enums.PermissionEnum;
-import uz.pdp.upg_magazin.entity.enums.RoleEnum;
 
-import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,14 +16,14 @@ public class UserRequestDto {
     private String lastname;
     private String email;
     private String password;
-    private String  phoneNumber;
+    private String phoneNumber;
 
-    private List<RoleEnum> roleEnumList;
+    private String roles;
+    private String permissions;
 
-    private List<PermissionEnum> permissionEnumList;
-
-    public  boolean isUser(){
-        return roleEnumList==null&& permissionEnumList==null;
+    @JsonIgnore
+    public boolean isUser() {
+        return roles == null && permissions == null;
     }
 
 }
